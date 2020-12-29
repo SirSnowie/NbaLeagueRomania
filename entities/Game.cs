@@ -6,8 +6,8 @@ namespace NbaLeagueRomania.entities
 {
     class Game:Entity<long>
     {
-        protected Team FirstTeam { get; set; }
-        protected Team SecondTeam { get; set; }
+        public Team FirstTeam { get; set; }
+        public Team SecondTeam { get; set; }
         public DateTime DateTime { get; set; }
 
         public Game(Team echipa_1, Team echipa_2)

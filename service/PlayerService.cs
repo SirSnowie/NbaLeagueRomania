@@ -15,9 +15,8 @@ namespace NbaLeagueRomania.service
             this.repository = repository;
         }
 
-        public Player AddPlayer(string nume,string scoala, Team echipa)
+        public Player AddPlayer(Player newPlayer)
         {
-            Player newPlayer = new Player(nume,scoala,echipa);
             newPlayer.ID = GetNewId();
             return repository.Save(newPlayer);
         }
@@ -44,6 +43,11 @@ namespace NbaLeagueRomania.service
                 if (x.Echipa.Equals(echipa))
                     players.Add(x);
             return players;
+        }
+
+        public Player GetOne(long id)
+        {
+            return repository.GetOne(id);
         }
 
     }
