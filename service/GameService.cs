@@ -6,11 +6,11 @@ using System.Text;
 
 namespace NbaLeagueRomania.service
 {
-    class MeciService
+    class GameService
     {
         private IRepository<long, Game> repository;
 
-        public MeciService(IRepository<long, Game> repository)
+        public GameService(IRepository<long, Game> repository)
         {
             this.repository = repository;
         }
