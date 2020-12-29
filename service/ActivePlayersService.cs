@@ -15,10 +15,9 @@ namespace NbaLeagueRomania.service
             this.repository = repository;
         }
 
-        public ActivePlayer AddActivePlayer(long idJucator, long idMeci, int nrPuncte, Tip tip)
+        public ActivePlayer AddActivePlayer(ActivePlayer newActivePlayer)
         {
-            ActivePlayer newActivePlayer = new ActivePlayer(idJucator, idMeci, nrPuncte, tip);
-            newActivePlayer.ID = new Tuple<long, long>(idJucator, idMeci);
+            newActivePlayer.ID = new Tuple<long, long>(newActivePlayer.idJucator, newActivePlayer.idMeci);
             return repository.Save(newActivePlayer);
         }
 

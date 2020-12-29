@@ -15,9 +15,8 @@ namespace NbaLeagueRomania.service
             this.repository = repository;
         }
 
-        public Game AddGame(Team team1, Team team2)
+        public Game AddGame(Game newGame)
         {
-            Game newGame =new Game(team1, team2);
             newGame.ID = GetNewId();
             return repository.Save(newGame);
         }
@@ -40,6 +39,11 @@ namespace NbaLeagueRomania.service
         public IEnumerable<Game> GetAll()
         {
             return repository.GetAll();
+        }
+
+        public Game GetOne(long id)
+        {
+            return repository.GetOne(id);
         }
 
         public List<Game> GetGamesBetween(DateTime start, DateTime end)

@@ -15,9 +15,8 @@ namespace NbaLeagueRomania.service
             this.repository = repository;
         }
 
-        public Team AddTeam(string nume)
+        public Team AddTeam(Team newTeam)
         {
-            Team newTeam = new Team(nume);
             newTeam.ID = GetNewId();
             return repository.Save(newTeam);
         }
