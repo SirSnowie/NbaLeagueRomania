@@ -45,7 +45,7 @@ namespace NbaLeagueRomania.repository
             return null;
         }
 
-        public E Save(E entity)
+        public virtual E Save(E entity)
         {
             if (entity == null)
                 throw new ArgumentNullException("The enitity cannot be null!");

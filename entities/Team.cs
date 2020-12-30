@@ -6,7 +6,7 @@ namespace NbaLeagueRomania.entities
 {
     class Team : Entity<long>
     {
-        String Name { get; set; }
+        public String Name { get; set; }
 
         public Team(string name)
         {
