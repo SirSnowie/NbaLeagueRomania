@@ -23,5 +23,10 @@ namespace NbaLeagueRomania.entities
             this.nrPuncteInscrise = nrPuncteInscrise;
             this.tip = tip;
         }
+
+        public override string ToString()
+        {
+            return idJucator + " played in game with id: " + idMeci + " and scored a number of " + nrPuncteInscrise + " points playing as a " + tip;
+        }
     }
 }

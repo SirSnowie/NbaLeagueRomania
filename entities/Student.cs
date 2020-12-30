@@ -6,8 +6,8 @@ namespace NbaLeagueRomania.entities
 {
     class Student : Entity<long>
     {
-        protected string Nume { get; set; }
-        protected string Scoala { get; set; }
+        public string Nume { get; set; }
+        public string Scoala { get; set; }
 
         public Student(string nume, string scoala)
         {

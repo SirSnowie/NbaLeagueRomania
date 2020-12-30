@@ -17,9 +17,14 @@ namespace NbaLeagueRomania.entities
             DateTime = DateTime.Now;
         }
 
+        public Game(Team firstTeam, Team secondTeam, DateTime dateTime) : this(firstTeam, secondTeam)
+        {
+            DateTime = dateTime;
+        }
+
         public override string ToString()
         {
-            return FirstTeam + " played " + SecondTeam + "at : " + this.DateTime.ToString();
+            return FirstTeam + " played " + SecondTeam + " at : " + this.DateTime.ToString();
         }
     }
 }
