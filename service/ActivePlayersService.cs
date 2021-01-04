@@ -31,7 +31,7 @@ namespace NbaLeagueRomania.service
             return repository.GetAll();
         }
 
-        public List<ActivePlayer> GetActivePLayersOfGame(long gameID)
+        public List<ActivePlayer> GetActivePlayersOfGame(long gameID)
         {
             List<ActivePlayer> players = new List<ActivePlayer>();
             foreach (var x in repository.GetAll())

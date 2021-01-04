@@ -85,6 +85,14 @@ namespace NbaLeagueRomania.controller
             return gameService.GetAll();
         }
 
+        public List<Player> getPlayersOfTeam(long teamId)
+        {
+            Team team = teamService.GetOne(teamId);
+            if (team == null)
+                throw new Exception("The team doesn't exist!");
+            return playerService.GetPlayersOfTeam(team);
+        }
+
         public List<Game> GetGamesBetweenDates(int month1,int year1, int month2, int year2)
         {
             if (month1 < 1 || month1 > 12)
@@ -92,7 +100,7 @@ namespace NbaLeagueRomania.controller
             if (month2 < 1 || month2 > 12)
                 throw new Exception("Enter a valid second month!");
             DateTime start = new DateTime(year1, month1, 1);
-            DateTime end = new DateTime(year2, month2, 1);
+            DateTime end = new DateTime(year2, month2, DateTime.DaysInMonth(year2, month2));
             return gameService.GetGamesBetween(start, end);
 
         }
@@ -125,14 +133,38 @@ namespace NbaLeagueRomania.controller
         public string GetScoreOfGame(long gameID)
         {
             Game game = gameService.GetOne(gameID);
+            if (game == null)
+                throw new Exception("Game doesn't exist!");
             Team team1 = game.FirstTeam;
             int scoreT1=0, scoreT2=0;
-            foreach (var x in activePlayerService.GetActivePLayersOfGame(gameID))
+            foreach (var x in activePlayerService.GetActivePlayersOfGame(gameID))
                 if (playerService.GetOne(x.idJucator).Echipa.Equals(team1))
-                    scoreT1++;
+                    scoreT1+=x.nrPuncteInscrise;
                 else
-                    scoreT2++;
+                    scoreT2+=x.nrPuncteInscrise;
             return game.ToString() + " | score: " + scoreT1 + " : " + scoreT2; 
+        }
+
+        public List<string> getActivePlayersOfGameAndTeam(long gameID,long teamID)
+        {
+            Game game = gameService.GetOne(gameID);
+            if ( game == null)
+                throw new Exception("Game doesn't exist!");
+            if (teamService.GetOne(teamID) == null)
+                throw new Exception("Team doesn't exist!");
+            if (game.FirstTeam.ID != teamID && game.SecondTeam.ID != teamID)
+                throw new Exception("The team doesn't play in this game!");
+
+            List<string> players = new List<string>();
+            players.Add("For team " + teamService.GetOne(teamID).Name + " :");
+            activePlayerService.GetActivePlayersOfGame(gameID)
+                .ForEach(x =>
+                {
+                    Player player = playerService.GetOne(x.idJucator);
+                    if (player.Echipa.ID == teamID)
+                        players.Add(player.Nume + " played as " + x.tip + " and scored " + x.nrPuncteInscrise + " points ");
+                });
+            return players;
         }
     }
 }

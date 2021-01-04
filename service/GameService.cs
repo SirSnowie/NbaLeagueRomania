@@ -50,7 +50,7 @@ namespace NbaLeagueRomania.service
         {
             List<Game> games = new List<Game>();
             foreach (Game g in repository.GetAll())
-                if (g.DateTime.CompareTo(start) > 0 && g.DateTime.CompareTo(end) < 0)
+                if (g.DateTime.CompareTo(start) >= 0 && g.DateTime.CompareTo(end) <= 0)
                     games.Add(g);
             return games;
 

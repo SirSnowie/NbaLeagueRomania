@@ -26,6 +26,10 @@ namespace NbaLeagueRomania.ui
             Console.WriteLine("32 - Display All Games");
             Console.WriteLine("41 - Add New Active Player");
             Console.WriteLine("42 - Display All Active Players");
+            Console.WriteLine("5 - Display players of Team");
+            Console.WriteLine("6 - Display the active players of a team in a certain game");
+            Console.WriteLine("7 - Display the score of a certain game");
+            Console.WriteLine("8 - Display all games between two dates");
 
         }
 
@@ -159,6 +163,73 @@ namespace NbaLeagueRomania.ui
             Console.WriteLine("---------------------");
         }
 
+        private void displayPlayersOfGameAndTeam()
+        {
+            Console.Write("Enter Game ID:");
+            try
+            {
+                long gameID = long.Parse(Console.ReadLine());
+                Console.Write("Enter team ID:");
+                long teamID = long.Parse(Console.ReadLine());
+                controller.getActivePlayersOfGameAndTeam(gameID, teamID).ForEach(x => Console.WriteLine(x));
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+
+
+        private void displayPlayersOfTeam()
+        {
+            Console.Write("Enter the team ID:");
+            try
+            {
+                long teamID = long.Parse(Console.ReadLine());
+                controller.getPlayersOfTeam(teamID).ForEach(x => Console.WriteLine(x));
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+
+        private void displayScoreOfGame()
+        {
+            Console.Write("Enter game ID:");
+            try
+            {
+                long gameID = long.Parse(Console.ReadLine());
+                Console.WriteLine(controller.GetScoreOfGame(gameID));
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+
+        private void displayGamesBetweenDates()
+        {
+            try
+            {
+                Console.WriteLine("Enter starting date");
+                Console.Write("Starting Month:");
+                int month1 = int.Parse(Console.ReadLine());
+                Console.Write("Starting Year:");
+                int year1 = int.Parse(Console.ReadLine());
+                Console.WriteLine("Enter finishing date");
+                Console.Write("Ending Month:");
+                int month2 = int.Parse(Console.ReadLine());
+                Console.Write("Ending year:");
+                int year2 = int.Parse(Console.ReadLine());
+                controller.GetGamesBetweenDates(month1, year1, month2, year2).ForEach(Console.WriteLine);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+
         public void run()
         {
             displayMenu();
@@ -180,6 +251,10 @@ namespace NbaLeagueRomania.ui
                         case 32: showAllGames();break;
                         case 41: addActivePlayer();break;
                         case 42: showAllActivePlayers();break;
+                        case 5: displayPlayersOfTeam();break;
+                        case 6: displayPlayersOfGameAndTeam();break;
+                        case 7: displayScoreOfGame();break;
+                        case 8: displayGamesBetweenDates();break;
                         default:
                             Console.WriteLine("Incorrect command!"); break;
                     }
